@@ -1,7 +1,23 @@
 import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Home from "./components/Home";
+import Replies from "./components/Replies";
 
 function App() {
-  return <div className="App">Hello, world!</div>;
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="dashboard" element={<Home />} />
+          <Route path="/:id/replies" element={<Replies />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;
