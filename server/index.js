@@ -8,6 +8,7 @@ app.use(express.json());
 app.use(cors());
 
 const users = [];
+
 const generateID = () => Math.random().toString(36).substring(2, 10);
 
 app.get("/api", (req, res) => {
@@ -15,6 +16,7 @@ app.get("/api", (req, res) => {
 });
 
 app.post("/api/register", async (req, res) => {
+  console.log("users at first", users);
   const { email, password, username } = req.body;
 
   const id = generateID();
@@ -23,6 +25,7 @@ app.post("/api/register", async (req, res) => {
   const result = users.filter(
     (user) => user.email === email && user.username === username
   );
+  console.log("result is ", result.length);
 
   //if true
   if (result.length === 0) {
@@ -32,8 +35,21 @@ app.post("/api/register", async (req, res) => {
 
     return res.json({ message: "Account created successfully" });
   }
-  res.json({ message: "User already exists" });
+  res.json({ error_message: "User already exists" });
   console.log({ email, password, username, id });
+});
+
+app.post("/api/login", (req, res) => {
+  const { email, password } = req.body;
+
+  let result = users.filter(
+    (user) => user.email === email && user.password === password
+  );
+  if (result.length !== 1) {
+    return res.json({ error_message: "Incorrect credentials" });
+  }
+
+  res.json({ message: "Login successful", id: result[0].id });
 });
 
 app.listen(PORT, () => {
