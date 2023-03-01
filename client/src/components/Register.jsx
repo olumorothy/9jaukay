@@ -11,10 +11,30 @@ export default function Register() {
   const handleRegistration = (e) => {
     e.preventDefault();
     console.log(username, password, confirmPassword, email);
+    signUp();
     setUsername("");
     setPassword("");
     setConfirmPassword("");
     setEmail("");
+  };
+
+  const signUp = () => {
+    fetch("http://localhost:9098/api/register", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+        username,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => console.error(err));
   };
   return (
     <main className="register">
