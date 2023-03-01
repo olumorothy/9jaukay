@@ -1,12 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   const handleRegistration = (e) => {
     e.preventDefault();
@@ -32,7 +33,13 @@ export default function Register() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
+        if (data.error_message) {
+          alert(data.error_message);
+        } else {
+          alert("Account created successfully");
+          navigate("/");
+        }
       })
       .catch((err) => console.error(err));
   };
