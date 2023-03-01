@@ -18,6 +18,21 @@ app.post("/api/register", async (req, res) => {
   const { email, password, username } = req.body;
 
   const id = generateID();
+
+  // no existing user with the same credentials
+  const result = users.filter(
+    (user) => user.email === email && user.username === username
+  );
+
+  //if true
+  if (result.length === 0) {
+    const newUser = { id, email, password, username };
+
+    users.push(newUser);
+
+    return res.json({ message: "Account created successfully" });
+  }
+  res.json({ message: "User already exists" });
   console.log({ email, password, username, id });
 });
 
