@@ -7,7 +7,8 @@
   font-family: "Space Grotesk", sans-serif;
 }
 
-input {
+input,
+select {
   padding: 10px 20px;
   border: 1px solid #ddd;
   border-radius: 3px;
@@ -15,7 +16,9 @@ input {
 }
 
 .login,
-.register {
+.register,
+.home,
+.replies {
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -26,7 +29,9 @@ input {
 }
 
 .loginTitle,
-.registerTitle {
+.registerTitle,
+.homeTitle,
+.repliesTitle {
   margin-bottom: 30px;
 }
 
@@ -37,7 +42,9 @@ input {
   flex-direction: column;
 }
 .loginBtn,
-.registerBtn {
+.registerBtn,
+.homeBtn,
+.modalBtn {
   display: block;
   width: 200px;
   padding: 15px;
@@ -49,5 +56,67 @@ input {
   font-weight: bold;
   color: #ffff;
   background-color: #674188;
+  margin-bottom: 15px;
+}
+.homeForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  margin-bottom: 30px;
+}
+.home-container {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #674188;
+  height: 8vh;
+  padding: 10px 20px;
+}
+.navbar > h2 {
+  color: #fffbf5;
+}
+.navbarRight {
+  display: flex;
+  align-items: center;
+}
+
+.navbarRight > button {
+  padding: 10px;
+  width: 100px;
+  background-color: #f99417;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fffbf5;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  margin-left: 15px;
+}
+
+.modal-content {
+  background-color: #fff;
+  width: 30%;
+  padding: 30px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+.modal-content > label {
+  margin-bottom: 15px;
+}
+.modalInput {
+  width: 100%;
+  padding: 15px;
   margin-bottom: 15px;
 }
