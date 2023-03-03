@@ -8,6 +8,7 @@ app.use(express.json());
 app.use(cors());
 
 const users = [];
+const threadList = [];
 
 const generateID = () => Math.random().toString(36).substring(2, 10);
 
@@ -50,6 +51,22 @@ app.post("/api/login", (req, res) => {
   }
 
   res.json({ message: "Login successful", id: result[0].id });
+});
+
+app.post("/api/create/thread", async (req, res) => {
+  const { thread, userId, category } = req.body;
+  const threadId = generateID();
+
+  threadList.unshift({
+    id: threadId,
+    title: thread,
+    userId,
+    replies: [],
+    likes: [],
+  });
+
+  // console.log({ thread, userId, threadId, category });
+  res.json({ message: "Thread created", threads: threadList });
 });
 
 app.listen(PORT, () => {
