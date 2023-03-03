@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Nav() {
+  const navigate = useNavigate();
   const handleSignOut = () => {
-    alert("User signed out");
+    localStorage.removeItem("_id");
+    navigate("/");
   };
   return (
     <nav className="navbar">

@@ -1,10 +1,24 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
 
 export default function Home() {
   const [category, setCategory] = useState("");
   const [thread, setThread] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkUser = () => {
+      if (!localStorage.getItem("_id")) {
+        navigate("/");
+      } else {
+        console.log("Authenticated");
+      }
+    };
+    checkUser();
+  }, [navigate]);
 
   const handleCreateThread = (e) => {
     e.preventDefault();

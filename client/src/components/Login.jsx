@@ -1,14 +1,40 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const Login = () => {
+    fetch("http://localhost:9098/api/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error_message) {
+          alert(data.error_message);
+        } else {
+          alert(data.message);
+          navigate("/dashboard");
+          localStorage.setItem("_id", data.id);
+        }
+      })
+      .catch((err) => console.error(err));
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
     console.log({ email, password });
+    Login();
     setEmail("");
     setPassword("");
   };
