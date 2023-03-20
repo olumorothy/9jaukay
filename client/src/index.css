@@ -120,3 +120,38 @@ select {
   padding: 15px;
   margin-bottom: 15px;
 }
+.thread_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+}
+
+.thread_item {
+  padding: 20px;
+  width: 80%;
+  box-shadow: 0 0 1px 1px #c3acd0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.likes_container {
+  display: flex;
+  align-items: center;
+  margin-right: 25px;
+}
+
+.likesBtn {
+  height: 30px;
+  color: #f99417;
+  cursor: pointer;
+}
+
+.react_container {
+  display: flex;
+  align-items: center;
+}

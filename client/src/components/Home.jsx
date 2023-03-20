@@ -2,11 +2,14 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Comments from "./Comments";
+import Likes from "./Likes";
 import Nav from "./Nav";
 
 export default function Home() {
   const [category, setCategory] = useState("");
   const [thread, setThread] = useState("");
+  const [threadList, setThreadList] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +25,7 @@ export default function Home() {
 
   const handleCreateThread = (e) => {
     e.preventDefault();
-    console.log({ thread, category });
+    createThread();
     setThread("");
     setCategory("--Select a Category");
   };
@@ -31,12 +34,39 @@ export default function Home() {
     setCategory(e.target.value);
   };
 
+  const createThread = () => {
+    fetch("http://localhost:9098/api/create/thread", {
+      method: "POST",
+      body: JSON.stringify({
+        thread,
+        category,
+        userId: localStorage.getItem("_id"),
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        alert(data.message);
+        setThreadList(data.threads);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createThread();
+    setThread("");
+  };
+
   return (
     <>
       <Nav />
       <main className="home">
         <h2 className="homeTitle">Create a new Thread</h2>
-        <form className="homeForm" onSubmit={handleCreateThread}>
+        <form className="homeForm" onSubmit={handleSubmit}>
           <div className="home-container">
             <label htmlFor="thread">Title</label>
             <input
@@ -57,6 +87,26 @@ export default function Home() {
           </div>
           <button className="homeBtn">CREATE THREAD</button>
         </form>
+
+        <div className="thread_container">
+          {threadList.map((thread) => (
+            <div className="thread_item" key={thread.id}>
+              <p>{thread.title}</p>
+              <p>{thread.category}</p>
+              <div className="react_container">
+                <Likes
+                  numberOfLikes={thread.likes.length}
+                  threadId={thread.id}
+                />
+                <Comments
+                  numberOfComments={thread.replies.length}
+                  threadId={thread.id}
+                  title={thread.title}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </main>
     </>
   );
