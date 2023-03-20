@@ -1,6 +1,9 @@
 import React from "react";
 
 function Likes({ numberOfLikes, threadId }) {
+  const handleLikeFunction = () => {
+    alert("You just liked this thread!");
+  };
   return (
     <div className="likes_container">
       <svg
@@ -10,6 +13,7 @@ function Likes({ numberOfLikes, threadId }) {
         strokeWidth={1.5}
         stroke="currentColor"
         className="w-6 h-6 likesBtn"
+        onClick={handleLikeFunction}
       >
         <path
           strokeLinecap="round"
