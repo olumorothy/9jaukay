@@ -2,7 +2,25 @@ import React from "react";
 
 function Likes({ numberOfLikes, threadId }) {
   const handleLikeFunction = () => {
-    alert("You just liked this thread!");
+    fetch("", {
+      method: "POST",
+      body: JSON.stringify({
+        threadId,
+        userId: localStorage.getItem("_id"),
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error_message) {
+          alert(data.error_message);
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((err) => console.error(err));
   };
   return (
     <div className="likes_container">
