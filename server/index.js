@@ -53,6 +53,10 @@ app.post("/api/login", (req, res) => {
   res.json({ message: "Login successful", id: result[0].id });
 });
 
+app.get("/api/all/threads", (req, res) => {
+  res.json({ threads: threadList });
+});
+
 app.post("/api/create/thread", async (req, res) => {
   const { thread, userId, category } = req.body;
   const threadId = generateID();
@@ -60,6 +64,7 @@ app.post("/api/create/thread", async (req, res) => {
   threadList.unshift({
     id: threadId,
     title: thread,
+    category,
     userId,
     replies: [],
     likes: [],
