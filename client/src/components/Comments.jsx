@@ -16,6 +16,7 @@ function Comments({ numberOfComments, threadId }) {
         strokeWidth="1.5"
         stroke="currentColor"
         className="w-6 h-6 likesBtn"
+        onClick={handleAddComment}
       >
         <path
           clipRule="evenodd"
